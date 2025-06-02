@@ -44,3 +44,8 @@ def edit_destination(request, id):
         return redirect('list_destinations')
 
     return render(request, 'edit_destination.html', {'destino': destino})
+
+def delete_destination(request, id):
+    destino = DestinosTuristicos.objects.get(id=id)
+    destino.delete()
+    return redirect('list_destinations')
