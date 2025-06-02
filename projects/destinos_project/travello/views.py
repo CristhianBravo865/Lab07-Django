@@ -29,3 +29,18 @@ def add_destination(request):
 def list_destinations(request):
     destinos = DestinosTuristicos.objects.all()
     return render(request, 'list_destinations.html', {'destinos': destinos})
+
+def edit_destination(request, id):
+    destino = DestinosTuristicos.objects.get(id=id)
+
+    if request.method == 'POST':
+        destino.nombreCiudad = request.POST.get('nombreCiudad')
+        destino.descripcionCiudad = request.POST.get('descripcionCiudad')
+        if request.FILES.get('imagenCiudad'):
+            destino.imagenCiudad = request.FILES.get('imagenCiudad')
+        destino.precioTour = request.POST.get('precioTour')
+        destino.ofertaTour = request.POST.get('ofertaTour') == 'on'
+        destino.save()
+        return redirect('list_destinations')
+
+    return render(request, 'edit_destination.html', {'destino': destino})
