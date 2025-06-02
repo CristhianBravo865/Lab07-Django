@@ -29,6 +29,10 @@ def register(request):
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
 
+        if not username:
+            messages.error(request, 'El nombre de usuario es obligatorio.')
+            return redirect('register')
+
         if password1 == password2:
             if User.objects.filter(username=username).exists():
                 messages.error(request, 'El nombre de usuario ya existe')
@@ -37,7 +41,13 @@ def register(request):
                 messages.error(request, 'El correo ya está en uso')
                 return redirect('register')
             else:
-                user = User.objects.create_user(username=username, password=password1, email=email, first_name=first_name, last_name=last_name)
+                user = User.objects.create_user(
+                    username=username,
+                    password=password1,
+                    email=email,
+                    first_name=first_name,
+                    last_name=last_name
+                )
                 user.save()
                 messages.success(request, 'Usuario creado correctamente')
                 return redirect('login')
