@@ -3,11 +3,7 @@ from .models import DestinosTuristicos
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-
-@login_required
 def index(request):
-    if not request.user.is_superuser:
-        return redirect('/')
     destinos = DestinosTuristicos.objects.all()
     return render(request, 'index.html', {'destinos': destinos})
 
