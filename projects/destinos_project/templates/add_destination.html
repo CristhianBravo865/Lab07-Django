@@ -1,34 +1,48 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Añadir Destino Turístico</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
 </head>
-<body>
-    <h2>Añadir Destino Turístico</h2>
+<body class="container mt-5">
 
-    <form method="post" enctype="multipart/form-data">
+    <h2 class="mb-4">Añadir Destino Turístico</h2>
+
+    <form method="post" enctype="multipart/form-data" class="border p-4 rounded shadow-sm">
         {% csrf_token %}
 
-        <label for="nombreCiudad">Nombre de la Ciudad:</label><br>
-        <input type="text" name="nombreCiudad" placeholder="Nombre de la ciudad"><br><br>
+        <div class="mb-3">
+            <label class="form-label">Nombre de la Ciudad</label>
+            <input type="text" name="nombreCiudad" class="form-control" placeholder="Nombre de la ciudad">
+        </div>
 
-        <label for="descripcionCiudad">Descripción:</label><br>
-        <textarea name="descripcionCiudad" placeholder="Descripción de la ciudad"></textarea><br><br>
+        <div class="mb-3">
+            <label class="form-label">Descripción</label>
+            <textarea name="descripcionCiudad" class="form-control" placeholder="Descripción de la ciudad"></textarea>
+        </div>
 
-        <label for="imagenCiudad">Imagen:</label><br>
-        <input type="file" name="imagenCiudad"><br><br>
+        <div class="mb-3">
+            <label class="form-label">Imagen</label>
+            <input type="file" name="imagenCiudad" class="form-control">
+        </div>
 
-        <label for="precioTour">Precio del Tour:</label><br>
-        <input type="number" name="precioTour" step="0.01" placeholder="Precio en dólares"><br><br>
+        <div class="mb-3">
+            <label class="form-label">Precio del Tour</label>
+            <input type="number" name="precioTour" step="0.01" class="form-control" placeholder="Precio en dólares">
+        </div>
 
-        <label for="ofertaTour">¿Está en oferta?</label>
-        <input type="checkbox" name="ofertaTour"><br><br>
+        <div class="form-check mb-3">
+            <input type="checkbox" name="ofertaTour" class="form-check-input">
+            <label class="form-check-label">¿Está en oferta?</label>
+        </div>
 
-        <input type="submit" value="Añadir Destino">
+        <button type="submit" class="btn btn-primary">Añadir Destino</button>
     </form>
 
-    <br>
-    <a href="{% url 'list_destinations' %}">Volver a la lista de destinos</a>
+    <a href="{% url 'list_destinations' %}" class="btn btn-link mt-3">Volver a la lista de destinos</a>
+
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>

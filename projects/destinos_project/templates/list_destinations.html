@@ -1,22 +1,41 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Lista de Destinos Turísticos</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
 </head>
-<body>
-    <h2>Lista de Destinos Turísticos</h2>
+<body class="container mt-5">
 
-    <a href="{% url 'add_destination' %}">Añadir nuevo destino</a>
+    <h2 class="mb-4">Lista de Destinos Turísticos</h2>
 
-    <ul>
-        {% for destino in destinos %}
-        <li>
-            <strong>{{ destino.nombreCiudad }}</strong> - {{ destino.precioTour }} USD
-            <a href="{% url 'edit_destination' destino.id %}">Editar</a>
-            <a href="{% url 'delete_destination' destino.id %}">Eliminar</a>
-        </li>
-        {% endfor %}
-    </ul>
+    <a href="{% url 'add_destination' %}" class="btn btn-success mb-3">Añadir nuevo destino</a>
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Ciudad</th>
+                <th>Precio</th>
+                <th>Oferta</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for destino in destinos %}
+            <tr>
+                <td>{{ destino.nombreCiudad }}</td>
+                <td>${{ destino.precioTour }}</td>
+                <td>{% if destino.ofertaTour %}Sí{% else %}No{% endif %}</td>
+                <td>
+                    <a href="{% url 'edit_destination' destino.id %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'delete_destination' destino.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>
