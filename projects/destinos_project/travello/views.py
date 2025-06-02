@@ -1,12 +1,20 @@
 from django.shortcuts import render, redirect
 from .models import DestinosTuristicos
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
-
+@login_required
 def index(request):
+    if not request.user.is_superuser:
+        return redirect('/')
     destinos = DestinosTuristicos.objects.all()
     return render(request, 'index.html', {'destinos': destinos})
+
+@login_required
 def add_destination(request):
+    if not request.user.is_superuser:
+        return redirect('/')
     if request.method == 'POST':
         nombreCiudad = request.POST.get('nombreCiudad')
         descripcionCiudad = request.POST.get('descripcionCiudad')
@@ -26,11 +34,17 @@ def add_destination(request):
 
     return render(request, 'add_destination.html')
 
+@login_required
 def list_destinations(request):
+    if not request.user.is_superuser:
+        return redirect('/')
     destinos = DestinosTuristicos.objects.all()
     return render(request, 'list_destinations.html', {'destinos': destinos})
 
+@login_required
 def edit_destination(request, id):
+    if not request.user.is_superuser:
+        return redirect('/')
     destino = DestinosTuristicos.objects.get(id=id)
 
     if request.method == 'POST':
@@ -45,6 +59,7 @@ def edit_destination(request, id):
 
     return render(request, 'edit_destination.html', {'destino': destino})
 
+@login_required
 def delete_destination(request, id):
     destino = DestinosTuristicos.objects.get(id=id)
     destino.delete()
