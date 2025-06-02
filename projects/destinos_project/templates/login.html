@@ -1,26 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
+    <meta charset="utf-8">
+    <title>Iniciar Sesión</title>
 </head>
 <body>
-    <form action="login" method="post">
+    <h2>Iniciar Sesión</h2>
+    <form action="{% url 'login' %}" method="post">
         {% csrf_token %}
-        <input type="text" name="username" placeholder="username"><br>
-        <input type="password" name="password" placeholder="password"><br>
-        <input type="Submit">
+        <input type="text" name="username" placeholder="Nombre de usuario"><br>
+        <input type="password" name="password" placeholder="Contraseña"><br>
+        <input type="submit" value="Iniciar Sesión">
     </form>
 
-
     <div>
-            {% for message in messages %}
-            <h3> {{message}}  </h3>
-            {% endfor %}
+        {% for message in messages %}
+        <p style="color: red;">{{ message }}</p>
+        {% endfor %}
     </div>
 </body>
 </html>
