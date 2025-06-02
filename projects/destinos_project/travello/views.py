@@ -25,3 +25,7 @@ def add_destination(request):
         return redirect('list_destinations')
 
     return render(request, 'add_destination.html')
+
+def list_destinations(request):
+    destinos = DestinosTuristicos.objects.all()
+    return render(request, 'list_destinations.html', {'destinos': destinos})
